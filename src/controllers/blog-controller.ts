@@ -16,12 +16,10 @@ import { BlogModel } from "../model/blogs";
 // ! [POST]: /api/blog
 const createBlog: MiddlewareFunction = async (req, res, next) => {
   const request = req.body as CreateBlog;
-  console.log(req.body)
 
   try {
     await BlogModel.create({ ...request, createdAt: Date() });
   } catch (err) {
-    console.log(err)
     const error = new InternalServer("Cannot add blog!");
     return next(res.status(error.code).json(error));
   }

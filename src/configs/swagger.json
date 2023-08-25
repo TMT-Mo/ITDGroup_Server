@@ -55,7 +55,7 @@
           {
             "name": "size",
             "in": "query",
-            "description": "Size of a list of users in system",
+            "description": "Size of a list of blogs in system",
             "schema": {
               "type": "number"
             }
@@ -98,7 +98,7 @@
         "responses": {
           "201": {
             "description": {
-              "message": "Update user successfully!",
+              "message": "Update blog successfully!",
               "code": 201
             },
             "content": {
@@ -127,7 +127,7 @@
         "responses": {
           "201": {
             "description": {
-              "message": "Update user successfully!",
+              "message": "Update blog successfully!",
               "code": 201
             },
             "content": {
