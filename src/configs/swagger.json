@@ -1,208 +1,153 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "ITD-Group API documentation",
-      "version": "1.0.2",
-      "description": "ITD-Group's API description"
-    },
-    "tags": [
-      {
-        "name": "Blogs"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ITD-Group API documentation",
+    "version": "1.0.2",
+    "description": "ITD-Group's API description"
+  },
+  "tags": [
+    {
+      "name": "Blogs"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Blog": {
+        "$ref": "#/definitions/Blog"
       }
-    ],
-    "components": {
-      "schemas": {
-        "Blog": {
-          "$ref": "#/definitions/Blog"
-        }
-      }
-    },
-    "schemes": ["http"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"],
-    "paths": {
-      "/api/blog": {
-        "post": {
-          "tags": ["Blogs"],
-          "summary": "Create new blog in system",
-          "requestBody": {
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/blog": {
+      
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Get a list of blogs in system",
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size of a list of users in system",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "currentPage",
+            "in": "query",
+            "description": "Position of page reveals a list of blogs in system",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/createUser"
+                  "$ref": "#/definitions/getUserList"
                 }
               }
             }
-          },
-          "produces": ["application/json"],
-          "responses": {
-            "201": {
-              "description": {},
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/definitions/SuccessResponse"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-            "tags": ["Blogs"],
-            "summary": "Get a list of blogs in system",
-            "parameters": [
-              {
-                "name": "size",
-                "in": "query",
-                "description": "Size of a list of users in system",
-                "schema": {
-                  "type": "number"
-                }
-              },
-              {
-                "name": "currentPage",
-                "in": "query",
-                "description": "Position of page reveals a list of blogs in system",
-                "schema": {
-                  "type": "number"
-                }
-              }
-            ],
-            "responses": {
-              "200": {
-                "description": "OK",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/definitions/getUserList"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "patch": {
-            "tags": ["Blogs"],
-            "summary": "Update an existed blog in system",
-            "requestBody": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/definitions/updateUser"
-                  }
-                }
-              }
-            },
-            "produces": ["application/json"],
-            "responses": {
-              "201": {
-                "description": {
-                  "message": "Update user successfully!",
-                  "code": 201
-                },
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/definitions/SuccessResponse"
-                    }
-                  }
-                }
-              }
-            }
-          }
-      }
-    },
-    "definitions": {
-      "Blog": {
-        "properties": {
-          "id": {
-            "type": "number",
-            "uniqueItems": true
-          },
-          "title": {
-            "type": "string"
-          },
-          "brief": {
-            "type": "string"
-          },
-          "content": {
-            "type": "array"
-          },
-          "creator": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string"
-          }
-        }
-      },
-      "createUser": {
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string"
-          }
-        }
-      },
-      "updateUser": {
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "roleName": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "getUserList": {
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/Blog"
-            }
-          },
-          "size": {
-            "type": "number"
-          },
-          "currentPage": {
-            "type": "number"
-          },
-          "total": {
-            "type": "number"
-          }
-        }
-      },
-      "SuccessResponse": {
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "code": {
-            "type": "number",
-            "default": 201
-          }
-        }
-      },
-      "ErrorResponse": {
-        "properties": {
-          "errorMessage": {
-            "type": "string"
-          },
-          "code": {
-            "type": "number"
           }
         }
       }
     }
+  },
+  "definitions": {
+    "Blog": {
+      "properties": {
+        "id": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "createUser": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "updateUser": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "getUserList": {
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Blog"
+          }
+        },
+        "size": {
+          "type": "number"
+        },
+        "currentPage": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        }
+      }
+    },
+    "SuccessResponse": {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "number",
+          "default": 201
+        }
+      }
+    },
+    "ErrorResponse": {
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        },
+        "code": {
+          "type": "number"
+        }
+      }
+    }
   }
-  
+}
