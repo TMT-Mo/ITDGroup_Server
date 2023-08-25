@@ -1,18 +1,19 @@
-import { apis } from './util/api';
+import { apis } from "./util/api";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { getConfigs } from "./configs/configs";
-import { blogRouter } from './routes/blog-routes';
-import { InternalServer } from './util/http-request';
+import { blogRouter } from "./routes/blog-routes";
+import { InternalServer } from "./util/http-request";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./configs/swagger.json";
-import helmet from 'helmet';
+import helmet from "helmet";
 const app = express();
 const PORT = process.env.PORT || 3000;
-const {head} = apis
+const { head } = apis;
 const { MONGO_URL, CLIENT_HOST } = getConfigs();
+mongoose.set('strictQuery', false);
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(MONGO_URL);
@@ -25,14 +26,16 @@ const connectDB = async () => {
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(helmet.contentSecurityPolicy({
+app.use(
+  helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
       imgSrc: ["*"],
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-      styleSrc: ["'self'", "'unsafe-inline'"]
-    }
-  }));
+      styleSrc: ["'self'", "'unsafe-inline'"],
+    },
+  })
+);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", CLIENT_HOST);
@@ -48,9 +51,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(head, blogRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-    const error = new InternalServer("Could not find this route!");
-    return next(res.status(error.code).json(error));
-  });
+  const error = new InternalServer("Could not find this route!");
+  return next(res.status(error.code).json(error));
+});
 
 connectDB().then(() => {
   app.listen(PORT, () => {
