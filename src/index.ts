@@ -33,6 +33,7 @@ app.use((req, res, next) => {
     "Content-Type, Authorization, application/json"
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Content-Security-Policy", "*")
   next();
 });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
