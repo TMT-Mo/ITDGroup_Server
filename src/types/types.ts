@@ -27,8 +27,23 @@ export interface CreateBlog {
   creator: string;
   createdAt: string;
 }
+export interface IBlog {
+  title: string;
+  brief: string;
+  content: string[];
+  creator: string;
+  createdAt: string;
+}
+export interface UpdateBlog {
+  id: number;
+  title: string;
+  brief: string;
+  content: string[];
+  creator: string;
+  createdAt: string;
+}
 
 export interface BlogRequestQuery {
-    currentPage?: number;
-    size?: number;
-  }
+  currentPage?: number;
+  size?: number;
+}

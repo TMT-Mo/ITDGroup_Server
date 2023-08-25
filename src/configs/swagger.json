@@ -22,7 +22,32 @@
   "produces": ["application/json"],
   "paths": {
     "/api/blog": {
-      
+      "post": {
+        "tags": ["Blogs"],
+        "summary": "Create new blog in system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/createUser"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": ["Blogs"],
         "summary": "Get a list of blogs in system",
@@ -51,6 +76,64 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/definitions/getUserList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Blogs"],
+        "summary": "Update an existed blog in system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/updateUser"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": {
+              "message": "Update user successfully!",
+              "code": 201
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Blogs"],
+        "summary": "Delete an existed blog in system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/deleteUser"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": {
+              "message": "Update user successfully!",
+              "code": 201
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/SuccessResponse"
                 }
               }
             }
@@ -85,26 +168,48 @@
     },
     "createUser": {
       "properties": {
-        "username": {
+        "title": {
           "type": "string"
         },
-        "password": {
+        "brief": {
           "type": "string"
         },
-        "role": {
+        "content": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "deleteUser": {
+      "properties": {
+        "id": {
           "type": "string"
         }
       }
     },
     "updateUser": {
       "properties": {
-        "username": {
+        "id": {
           "type": "string"
         },
-        "roleName": {
+        "title": {
           "type": "string"
         },
-        "status": {
+        "brief": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "image": {
           "type": "string"
         }
       }
