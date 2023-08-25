@@ -8,6 +8,7 @@ import { blogRouter } from './routes/blog-routes';
 import { InternalServer } from './util/http-request';
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./configs/swagger.json";
+import helmet from 'helmet';
 const app = express();
 const PORT = process.env.PORT || 3000;
 const {head} = apis
@@ -24,6 +25,14 @@ const connectDB = async () => {
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["*"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'"]
+    }
+  }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", CLIENT_HOST);
@@ -33,7 +42,6 @@ app.use((req, res, next) => {
     "Content-Type, Authorization, application/json"
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Content-Security-Policy", "*")
   next();
 });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
